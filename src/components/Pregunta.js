@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Error from "./Error";
 
-const Pregunta = ({ nombre }) => {
+const Pregunta = ({ nombre, setrestante, setpresupuesto, setpregunta }) => {
   const [cantidad, setcantidad] = useState(0);
   // error
   const [error, seterror] = useState(false);
@@ -16,14 +17,17 @@ const Pregunta = ({ nombre }) => {
       return;
     } else {
       seterror(false);
-      return;
+      setrestante(cantidad);
+      setpresupuesto(cantidad);
+      setpregunta(false);
     }
   };
   return (
+      
     <div>
       <h3>Favor inserta tu {nombre.map((n) => n.nombre)}</h3>
 
-      {error ? "Error no puede ser negativo" : null}
+      {error ? <Error mensaje="El Presupuesto es Incorrecto "/> : null}
       <form onSubmit={agregarPresupuesto}>
         <input
           type="number"
